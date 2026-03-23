@@ -1,33 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:yandex_maps_mapkit_lite/init.dart' as init;
-import 'package:app/layers/view/screens/home.dart';
+import 'package:app/layers/view/screens/onboarding.dart';
+// import 'package:app/layers/view/screens/home.dart'; // Убираем или оставляем если нужно
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  
-  try {
-    await init.initMapkit(
-      apiKey: '422e9589-580d-49bd-b0fc-a3c013dd9c1c',
-    );
-  } catch (e) {
-    print('Error initializing mapkit: $e');
-  }
-  
-  runApp(const MyApp());
+void main() {
+  runApp(const MainApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Coffee Delivery',
       theme: ThemeData(
-        brightness: Brightness.dark,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFFC67C4E),
+        ),
+        useMaterial3: true,
         scaffoldBackgroundColor: const Color.fromARGB(255, 34, 34, 34),
       ),
-      home: const Home(),
+      home: const Onboarding(), // Стартуем с Onboarding
       debugShowCheckedModeBanner: false,
     );
   }

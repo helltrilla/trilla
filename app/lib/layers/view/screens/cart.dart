@@ -1,4 +1,5 @@
 import 'package:app/layers/view/screens/delivery.dart';
+import 'package:app/layers/view/screens/home.dart';
 import 'package:flutter/material.dart';
 
 class CartScreen extends StatefulWidget {
@@ -45,7 +46,14 @@ class _CartScreenState extends State<CartScreen> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => {
+                                      Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Home(),
+                            ),
+                          )
+          },
         ),
         title: const Text(
           'Detail',

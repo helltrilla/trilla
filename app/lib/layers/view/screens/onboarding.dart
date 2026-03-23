@@ -1,3 +1,4 @@
+import 'package:app/layers/view/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,7 +22,7 @@ class Onboarding extends StatelessWidget {
           Expanded(
             flex: 3,
             child: Container(
-              color: Colors.black, 
+              color: Colors.black,
               child: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(0),
@@ -49,7 +50,15 @@ class Onboarding extends StatelessWidget {
                       ),
                       const SizedBox(height: 30),
                       ElevatedButton(
-                        onPressed: () => {context.go('/homepage')},
+                        onPressed: () {
+                          // Переход на главный экран
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Home(),
+                            ),
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFC67C4E),
                           foregroundColor: Colors.white,

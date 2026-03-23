@@ -14,7 +14,7 @@ dependencies:
   http: ^1.6.0
   intl: ^0.20.2
   textfield_search: ^0.11.1
-  yandex_maps_mapkit_lite: ^4.33.1-beta
+  # yandex_maps_mapkit_lite: ^4.33.1-beta
 
 dev_dependencies:
   flutter_test:
