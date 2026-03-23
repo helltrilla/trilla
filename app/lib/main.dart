@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:app/core/app_router.dart';
-void main() {
-  runApp(const MainApp());
+import 'package:yandex_maps_mapkit_lite/init.dart' as init;
+import 'package:app/layers/view/screens/home.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  try {
+    await init.initMapkit(
+      apiKey: '422e9589-580d-49bd-b0fc-a3c013dd9c1c',
+    );
+  } catch (e) {
+    print('Error initializing mapkit: $e');
+  }
+  
+  runApp(const MyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-
-    return MaterialApp.router(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
+    return MaterialApp(
+      title: 'Coffee Delivery',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: const Color.fromARGB(255, 34, 34, 34),
       ),
-      routerConfig: router,
+      home: const Home(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

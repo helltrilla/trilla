@@ -1,3 +1,5 @@
+import 'package:app/layers/view/screens/cart.dart';
+import 'package:app/layers/view/screens/delivery.dart';
 import 'package:flutter/material.dart';
 
 class DetailItem extends StatelessWidget {
@@ -20,10 +22,7 @@ class DetailItem extends StatelessWidget {
       backgroundColor: const Color.fromARGB(255, 34, 34, 34),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 34, 34, 34),
-        title: Text(
-          coffeeName,
-          style: const TextStyle(color: Colors.white),
-        ),
+        title: Text(coffeeName, style: const TextStyle(color: Colors.white)),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -46,13 +45,10 @@ class DetailItem extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.asset(
-                  coffeeImagePath ?? 'assets/photo/coffee_cup.png',
+                  coffeeImagePath ?? 'assets/photo/',
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => const Icon(
-                    Icons.coffee,
-                    size: 80,
-                    color: Colors.white,
-                  ),
+                  errorBuilder: (context, error, stackTrace) =>
+                      const Icon(Icons.coffee, size: 80, color: Colors.white),
                 ),
               ),
             ),
@@ -116,11 +112,16 @@ class DetailItem extends StatelessWidget {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        // Добавить в корзину
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('$coffeeName added to cart'),
-                            duration: const Duration(seconds: 1),
+                        // Переход на DeliveryScreen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DeliveryScreen(
+                              coffeeName: coffeeName,
+                              coffeePrice: coffeePrice ?? '0.00',
+                              quantity: 1,
+                              size: 'M',
+                            ),
                           ),
                         );
                       },
@@ -131,7 +132,7 @@ class DetailItem extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                      child: const Text('Add to Cart'),
+                      child: const Text('Buy Now'),
                     ),
                   ),
                 ],

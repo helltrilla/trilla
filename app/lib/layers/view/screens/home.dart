@@ -1,3 +1,5 @@
+import 'package:app/layers/view/screens/cart.dart';
+import 'package:app/layers/view/screens/notifications.dart';
 import 'package:app/layers/view/shared/ui/coffee_card.dart';
 import 'package:app/layers/view/shared/detail_item.dart';
 import 'package:flutter/cupertino.dart';
@@ -154,7 +156,7 @@ class _HomeState extends State<Home> {
       case 1:
         return _buildCartScreen();
       case 2:
-        return _buildNotificationsScreen();
+        return const NotificationsScreen();
       default:
         return _buildHomeScreen();
     }
@@ -654,12 +656,16 @@ class _HomeState extends State<Home> {
   }
 
   Widget _buildCartScreen() {
-    return const Center(
-      child: Text('Cart Screen', style: TextStyle(fontSize: 24)),
-    );
+    return const CartScreen(    coffeeName: 'Caffe Mocha',
+    coffeePrice: '4.53',
+    coffeeDescription: 'A cappuccino is an approximately 150 ml (5 oz) beverage, with 25 ml of espresso coffee and 85ml of fresh milk the foam...',
+    coffeeImagePath: 'assets/photo/mocha.png',
+    rating: 4.8,
+    reviews: 230,
+);
   }
 
-  Widget _buildNotificationsScreen() {
+  Widget _NotificationsScreen() {
     return const Center(
       child: Text('Notifications Screen', style: TextStyle(fontSize: 24)),
     );
