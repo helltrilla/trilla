@@ -1,0 +1,1 @@
+ /Users/0code/mobile/flutter/trilla/.dart_tool/flutter_build/4f7d70ee8b4fa7cd7a08535a1305a64e/native_assets.json:  /Users/0code/mobile/flutter/trilla/.dart_tool/hooks_runner/shared/objective_c/build/84fd4fa0ea/objective_c.dylib
