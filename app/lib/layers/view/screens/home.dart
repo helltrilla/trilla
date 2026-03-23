@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:app/layers/view/shared/ui/coffee_card.dart';
 import 'package:app/layers/view/shared/detail_item.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,10 +11,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _selectedTabIndex = 0; // Добавляем индекс выбранной вкладки
-  
-  String dropdownValue = 'Option 1';
-  List<String> list = ['Option 1', 'Option 2', 'Option 3'];
+  int _selectedTabIndex = 0;
+
+  String dropdownValue = 'Indonesian';
+  List<String> list = ['Indonesian', 'English', 'Russian'];
 
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
@@ -98,13 +97,13 @@ class _HomeState extends State<Home> {
     {
       'name': 'Cappuccino',
       'price': '4.13',
-      'description': 'milk from penis',
+      'description': 'Creamy foam',
       'imagePath': 'assets/photo/cappuccino.png',
       'route': '/cappuccino',
       'category': 'Cappuccino',
     },
   ];
-  
+
   @override
   void dispose() {
     _searchController.dispose();
@@ -114,7 +113,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _getBody(), // Вызываем метод для отображения нужного экрана
+      body: _getBody(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedTabIndex,
         onTap: (index) {
@@ -134,42 +133,33 @@ class _HomeState extends State<Home> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_outline),
-            activeIcon: Icon(Icons.favorite),
-            label: 'Favorites',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart_outlined),
             activeIcon: Icon(Icons.shopping_cart),
             label: 'Cart',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            activeIcon: Icon(Icons.person),
-            label: 'Profile',
+            icon: Icon(CupertinoIcons.bell),
+            activeIcon: Icon(CupertinoIcons.bell_fill),
+            label: 'Notifications',
           ),
         ],
       ),
     );
   }
-  
-  // Метод, который возвращает нужный экран в зависимости от выбранной вкладки
+
   Widget _getBody() {
     switch (_selectedTabIndex) {
       case 0:
         return _buildHomeScreen();
       case 1:
-        return _buildFavoritesScreen();
-      case 2:
         return _buildCartScreen();
-      case 3:
-        return _buildProfileScreen();
+      case 2:
+        return _buildNotificationsScreen();
       default:
         return _buildHomeScreen();
     }
   }
-  
-  // Главный экран (ваш существующий код)
+
   Widget _buildHomeScreen() {
     return Stack(
       children: [
@@ -209,9 +199,7 @@ class _HomeState extends State<Home> {
                           dropdownValue = value!;
                         });
                       },
-                      items: list.map<DropdownMenuItem<String>>((
-                        String value,
-                      ) {
+                      items: list.map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
@@ -271,7 +259,6 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-              // Картинка и горизонтальный скролл (без Expanded)
               Stack(
                 children: [
                   Container(width: double.infinity, color: Colors.white),
@@ -310,7 +297,6 @@ class _HomeState extends State<Home> {
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: [
-                            // Кнопка "All" для показа всех кофе
                             GestureDetector(
                               onTap: () {
                                 setState(() {
@@ -325,21 +311,11 @@ class _HomeState extends State<Home> {
                                 decoration: BoxDecoration(
                                   color: selectedCategory == 'All'
                                       ? const Color.fromARGB(255, 201, 79, 43)
-                                      : const Color.fromARGB(
-                                          255,
-                                          255,
-                                          255,
-                                          255,
-                                        ),
+                                      : Colors.white,
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
                                     color: selectedCategory == 'All'
-                                        ? const Color.fromARGB(
-                                            255,
-                                            201,
-                                            79,
-                                            43,
-                                          )
+                                        ? const Color.fromARGB(255, 201, 79, 43)
                                         : Colors.grey[300]!,
                                     width: 1,
                                   ),
@@ -358,7 +334,6 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                             ),
-                            // Динамические категории из списка items
                             for (final item in items)
                               GestureDetector(
                                 onTap: () {
@@ -373,18 +348,8 @@ class _HomeState extends State<Home> {
                                   ),
                                   decoration: BoxDecoration(
                                     color: selectedCategory == item
-                                        ? const Color.fromARGB(
-                                            255,
-                                            201,
-                                            79,
-                                            43,
-                                          )
-                                        : const Color.fromARGB(
-                                            255,
-                                            255,
-                                            255,
-                                            255,
-                                          ),
+                                        ? const Color.fromARGB(255, 201, 79, 43)
+                                        : Colors.white,
                                     borderRadius: BorderRadius.circular(20),
                                     border: Border.all(
                                       color: selectedCategory == item
@@ -419,7 +384,6 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              // ВЕРТИКАЛЬНЫЙ СКРОЛЛ ОТДЕЛЬНО (занимает все оставшееся место)
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -441,7 +405,6 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
-                      // Проверяем, есть ли кофе в выбранной категории
                       if (filteredCoffee.isEmpty)
                         const Padding(
                           padding: EdgeInsets.all(32),
@@ -473,17 +436,16 @@ class _HomeState extends State<Home> {
                                       MaterialPageRoute(
                                         builder: (context) => DetailItem(
                                           coffeeName: coffee['name'],
+                                          coffeePrice: coffee['price'],
+                                          coffeeDescription:
+                                              coffee['description'],
+                                          coffeeImagePath: coffee['imagePath'],
                                         ),
                                       ),
                                     );
                                   },
                                   onAddPressed: () {
-                                    print(
-                                      'Добавлен в корзину: ${coffee['name']}',
-                                    );
-                                    ScaffoldMessenger.of(
-                                      context,
-                                    ).showSnackBar(
+                                    ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
                                           '${coffee['name']} добавлен в корзину',
@@ -494,8 +456,7 @@ class _HomeState extends State<Home> {
                                   },
                                 ),
                               ),
-                            )
-                            .toList(),
+                            ),
                       const SizedBox(height: 20),
                     ],
                   ),
@@ -605,13 +566,29 @@ class _HomeState extends State<Home> {
                               itemCount: filteredItems.length,
                               itemBuilder: (context, index) {
                                 final item = filteredItems[index];
+                                // Находим полную информацию о кофе
+                                final selectedCoffee = coffeeMenu.firstWhere(
+                                  (coffee) => coffee['name'] == item,
+                                  orElse: () => {
+                                    'name': item,
+                                    'price': '0.00',
+                                    'description': '',
+                                    'imagePath': '',
+                                  },
+                                );
                                 return GestureDetector(
                                   onTap: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>
-                                            DetailItem(coffeeName: item),
+                                        builder: (context) => DetailItem(
+                                          coffeeName: selectedCoffee['name'],
+                                          coffeePrice: selectedCoffee['price'],
+                                          coffeeDescription:
+                                              selectedCoffee['description'],
+                                          coffeeImagePath:
+                                              selectedCoffee['imagePath'],
+                                        ),
                                       ),
                                     );
                                     setState(() {
@@ -634,8 +611,9 @@ class _HomeState extends State<Home> {
                                           height: 50,
                                           decoration: BoxDecoration(
                                             color: Colors.brown[700],
-                                            borderRadius:
-                                                BorderRadius.circular(10),
+                                            borderRadius: BorderRadius.circular(
+                                              10,
+                                            ),
                                           ),
                                           child: const Icon(
                                             Icons.coffee,
@@ -674,34 +652,16 @@ class _HomeState extends State<Home> {
       ],
     );
   }
-  
-  // Экран избранного
-  Widget _buildFavoritesScreen() {
-    return const Center(
-      child: Text(
-        'Favorites Screen',
-        style: TextStyle(fontSize: 24),
-      ),
-    );
-  }
-  
-  // Экран корзины
+
   Widget _buildCartScreen() {
     return const Center(
-      child: Text(
-        'Cart Screen',
-        style: TextStyle(fontSize: 24),
-      ),
+      child: Text('Cart Screen', style: TextStyle(fontSize: 24)),
     );
   }
-  
-  // Экран профиля
-  Widget _buildProfileScreen() {
+
+  Widget _buildNotificationsScreen() {
     return const Center(
-      child: Text(
-        'Profile Screen',
-        style: TextStyle(fontSize: 24),
-      ),
+      child: Text('Notifications Screen', style: TextStyle(fontSize: 24)),
     );
   }
 }
